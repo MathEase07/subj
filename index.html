@@ -1,85 +1,31 @@
 <!DOCTYPE html>
 <html lang="tl">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Sa Huling Jeep ng Gabi — Subtitles</title>
+  <meta charset="UTF-8">
+  <title>Sa Huling Jeep ng Gabi</title>
   <style>
-    :root {
-      --bg: #000;
-      --fg: #fff;
-      --muted: rgba(255,255,255,0.65);
-    }
-    html,body {
-      height:100%;
-      margin:0;
-      background:var(--bg);
-      color:var(--fg);
-      font-family: "Arial", Helvetica, sans-serif;
-    }
-    .wrap {
-      display:flex;
-      flex-direction:column;
-      height:100%;
-      align-items:center;
-      justify-content:center;
-      padding:20px;
-      box-sizing:border-box;
-      text-align:center;
+    body {
+      background-color: black;
+      color: white;
+      font-family: "Arial", sans-serif;
+      text-align: center;
+      padding: 30px;
     }
     #subtitle {
-      font-family: 'MistakeNote', "Segoe UI", Roboto, Arial, sans-serif;
-      color: #ff0000; /* red */
-      font-size: clamp(18px, 4vw, 30px);
-      line-height:1.4;
-      max-width: 92%;
-      background: rgba(0,0,0,0.45);
-      padding: 18px 22px;
-      border-radius: 12px;
-      box-shadow: 0 6px 18px rgba(0,0,0,0.6);
-      transition: opacity .35s, transform .35s;
-      opacity: 1;
-    }
-    #time {
-      margin-top:12px;
-      color: var(--muted);
-      font-size: 0.85rem;
-    }
-    /* small helper for debugging */
-    #debug {
-      position:fixed;
-      left:8px;
-      bottom:8px;
-      color:var(--muted);
-      font-size:12px;
-      opacity:0.9;
+      font-size: 24px;
+      margin-top: 40vh;
+      line-height: 1.5;
+      transition: opacity 0.5s;
     }
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <div id="subtitle">“Sa Huling Jeep ng Gabi”</div>
-    <div id="time"></div>
-  </div>
-  <div id="debug" style="display:none;"></div>
+  <div id="subtitle">Handa na? Pindutin ang Play sa app!</div>
 
-<script>
-/*
-  Generated subtitles for "Sa Huling Jeep ng Gabi"
-  - The script provided by the user was parsed as sequential phrases with durations (e.g., (3s)).
-  - Each subtitle entry has a start time in seconds (cumulative) and the visible text (without the (Ns) markers).
-  - Controls: App Inventor should set WebViewer.WebViewString to "play", "pause", or "stop".
-  - There's also a setOffset(seconds) function to shift all subtitle timings (if audio has lead-in silence).
-*/
-
-/* === Subtitles array ===
-   Each item: { t: <start seconds>, text: "<subtitle text>" }
-   NOTE: I grouped phrases into readable subtitle lines while preserving timings.
-*/
-const subtitles = [
-  /* I'll use the durations provided, accumulated to create start times.
-     Start at 0. */
-  { t: 12.0, text: "Sa lahat ng hindi inaasahan sa buhay, tulad ng sabayang pagpatak ng ulan at LBM, o yung pag-message mo sa crush mo na isi-seen lang" },
+  <script>
+    // --- Subtitles with start time (in seconds) ---
+    const subtitles = [
+      { t: 12.0, text: "Sa lahat ng hindi inaasahan sa buhay, tulad ng sabayang pagpatak ng ulan at LBM, o yung pag-message mo sa crush mo na isi-seen lang" },
   { t: 23.0, text: "Walang mas nakakagulat kaysa sa pagbabalik ng isang taong hindi mo na inakalang babalik pa." },
   { t: 31.0, text: "Ito ang kwento ni Bea… at ng isang jeepney ride na magbabago ng lahat." },
   { t: 38.0, text: "[Sound effects: Ulan, jeepney engine starting, 'para po!']" },
@@ -268,170 +214,49 @@ const subtitles = [
 
 
 
-/* === Subtitle player state === */
-let playing = false;
-let startEpoch = 0;       // Date.now() when playing started/resumed
-let elapsedBefore = 0;    // seconds elapsed before current play (for pause/resume)
-let raf = null;
-let offset = 0;           // global offset in seconds (if you need to shift timings)
+    let current = 0;
+    let startTime = null;
+    let playing = false;
+    let timer;
 
-/* Helpers */
-function formatSeconds(s) {
-  return (s >= 0) ? s.toFixed(1) + "s" : "0.0s";
-}
-
-function findCurrentSubtitle(sec) {
-  // find the last subtitle whose t <= sec
-  // subtitles are ordered by t
-  for (let i = subtitles.length - 1; i >= 0; i--) {
-    if (sec + 1e-6 >= (subtitles[i].t + offset)) return {index: i, item: subtitles[i]};
-  }
-  return null;
-}
-
-/* Render loop */
-let lastShownIndex = -1;
-function renderLoop() {
-  const now = Date.now();
-  const elapsed = (now - startEpoch) / 1000 + elapsedBefore;
-  const sec = elapsed;
-  const found = findCurrentSubtitle(sec);
-  if (found) {
-    if (found.index !== lastShownIndex) {
-      lastShownIndex = found.index;
-      const text = found.item.text;
-      document.getElementById('subtitle').style.opacity = 0;
-      // small delay for fade
-      setTimeout(()=> {
-        document.getElementById('subtitle').innerText = text;
-        document.getElementById('subtitle').style.opacity = 1;
-      }, 160);
-    }
-  }
-  document.getElementById('time').innerText = formatSeconds(sec);
-  raf = requestAnimationFrame(renderLoop);
-}
-
-/* Controls */
-function doPlay() {
-  if (!playing) {
-    playing = true;
-    startEpoch = Date.now();
-    raf = requestAnimationFrame(renderLoop);
-    // reveal first subtitle immediately if already within range
-    lastShownIndex = -1;
-  }
-}
-
-function doPause() {
-  if (playing) {
-    playing = false;
-    elapsedBefore += (Date.now() - startEpoch) / 1000;
-    if (raf) cancelAnimationFrame(raf);
-  }
-}
-
-function doStop() {
-  playing = false;
-  elapsedBefore = 0;
-  if (raf) cancelAnimationFrame(raf);
-  lastShownIndex = -1;
-  document.getElementById('subtitle').innerText = "Sa Huling Jeep ng Gabi";
-  document.getElementById('time').innerText = "";
-}
-
-/* Optional: allow App Inventor to set an offset reset or set current time */
-function setOffset(seconds) {
-  offset = seconds;
-}
-function setTime(seconds) {
-  // set the internal elapsed to `seconds` (useful if you get Player.CurrentPosition)
-  elapsedBefore = seconds;
-  if (playing) {
-    startEpoch = Date.now();
-  } else {
-    // not playing — update display immediately
-    lastShownIndex = -1;
-    const found = findCurrentSubtitle(seconds);
-    if (found) {
-      document.getElementById('subtitle').innerText = found.item.text;
-      document.getElementById('time').innerText = formatSeconds(seconds);
-    }
-  }
-}
-
-/* === Communication with MIT App Inventor ===
-   MIT AI2 (WebViewer) can call setWebViewString to send commands.
-   We'll poll window.AppInventor.getWebViewString() if available (common pattern).
-   Accept commands:
-     play  -> start/resume
-     pause -> pause
-     stop  -> stop/reset
-     time:NNN -> set current time (in seconds)  e.g. "time:45.3"
-     offset:NNN -> set timing offset in seconds (positive or negative)
-*/
-let lastCmd = "";
-
-function processCommand(cmd) {
-  if (!cmd) return;
-  if (cmd === lastCmd) return; // nothing new
-  lastCmd = cmd;
-  // parse possible values
-  if (cmd === "play") {
-    doPlay();
-  } else if (cmd === "pause") {
-    doPause();
-  } else if (cmd === "stop") {
-    doStop();
-  } else if (cmd.startsWith("time:")) {
-    const v = parseFloat(cmd.split(":")[1]);
-    if (!isNaN(v)) setTime(v);
-  } else if (cmd.startsWith("offset:")) {
-    const v = parseFloat(cmd.split(":")[1]);
-    if (!isNaN(v)) setOffset(v);
-  } else {
-    // ignore unknown
-    // show debug if needed
-    //document.getElementById('debug').innerText = "Unknown cmd: " + cmd;
-  }
-}
-
-/* Polling strategy (works for App Inventor WebViewer):
-   App Inventor sets WebViewer.WebViewString to a value which becomes accessible via
-   window.AppInventor.getWebViewString() inside the web page. We'll poll it every 300ms.
-*/
-function pollForCommands() {
-  try {
-    if (window.AppInventor && typeof window.AppInventor.getWebViewString === "function") {
-      const cmd = window.AppInventor.getWebViewString();
-      if (cmd && cmd.length) {
-        processCommand(cmd.trim());
-        // Clear webview string (if the environment supports set)
-        if (typeof window.AppInventor.setWebViewString === "function") {
-          window.AppInventor.setWebViewString(""); // reset on supported hosts
-        }
+    function showSubtitle() {
+      const now = (Date.now() - startTime) / 1000;
+      if (current < subtitles.length && now >= subtitles[current].time) {
+        document.getElementById("subtitle").innerText = subtitles[current].text;
+        current++;
       }
-    } else {
-      // fallback: some AI2 versions call setWebViewString with incoming messages,
-      // but if not present, App Inventor can also call JS functions—however polling is safe.
+      if (playing) {
+        timer = requestAnimationFrame(showSubtitle);
+      }
     }
-  } catch (e) {
-    // ignore
-  }
-}
-setInterval(pollForCommands, 300);
 
-/* Expose functions for direct JS calling (if you want to call from App Inventor via EvaluateJavaScript) */
-window.subtitleControls = {
-  play: doPlay,
-  pause: doPause,
-  stop: doStop,
-  setTime: setTime,
-  setOffset: setOffset
-};
+    function playSubtitles() {
+      if (!playing) {
+        playing = true;
+        startTime = Date.now() - (current > 0 ? subtitles[current - 1].time * 1000 : 0);
+        showSubtitle();
+      }
+    }
 
-/* initialize */
-doStop(); // show initial message
-</script>
+    function pauseSubtitles() {
+      playing = false;
+      cancelAnimationFrame(timer);
+    }
+
+    function stopSubtitles() {
+      playing = false;
+      cancelAnimationFrame(timer);
+      current = 0;
+      document.getElementById("subtitle").innerText = "Handa na? Pindutin ang Play sa app!";
+    }
+
+    // --- Connect with MIT App Inventor ---
+    window.AppInventor = window.AppInventor || {};
+    window.AppInventor.setWebViewString = function (command) {
+      if (command === "play") playSubtitles();
+      else if (command === "pause") pauseSubtitles();
+      else if (command === "stop") stopSubtitles();
+    };
+  </script>
 </body>
 </html>
