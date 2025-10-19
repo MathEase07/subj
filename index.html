@@ -23,29 +23,52 @@
   <div id="subtitle">Handa na? Pindutin ang Play sa app!</div>
 
   <script>
-    // --- Subtitles with start time (in seconds) ---
     const subtitles = [
-      { time: 0, text: "Sa lahat ng hindi inaasahan sa buhay, may mga gabi talagang hindi mo malilimutan." },
-      { time: 12, text: "Ito ang kwento ni Bea... at ng isang jeep na tila huminto sa panahon." },
-      { time: 25, text: "Gabi na sa Sariaya. Si Bea, galing sa kanyang part-time job, pagod ngunit nakangiti." },
-      { time: 40, text: "Habang nag-aabang ng masasakyan, dumating ang huling jeep ng gabi." },
-      { time: 55, text: "Tahimik ang loob, maliban sa mahinang tugtog ng radyo at pag-ugong ng makina." },
-      { time: 70, text: "Umupo siya sa may gitna, katabi ang ilang pasaherong tila pamilyar." },
-      { time: 85, text: "Habang umaandar ang jeep, napansin niyang pabalik-balik ang tanawin sa labas..." },
-      { time: 100, text: "Ang parehong poste, parehong tindahan, parehong kalsada." },
-      { time: 115, text: "“Kuya, saan po tayo dumadaan?” tanong ni Bea, may halong kaba." },
-      { time: 125, text: "Ngunit walang sumasagot. Parang walang nakakarinig." },
-      { time: 140, text: "Lumingon siya, at napansin... isa-isa nang naglalaho ang mga pasahero." },
-      { time: 155, text: "Hanggang siya na lang ang natira. Bumigat ang hangin. Tumigil ang jeep." },
-      { time: 170, text: "Lumapit ang drayber, at sa unang pagkakataon ay nagsalita." },
-      { time: 180, text: "“Bea, oras na.”" },
-      { time: 185, text: "Nanlamig siya. Paano nalaman ng drayber ang pangalan niya?" },
-      { time: 195, text: "Bago siya makapagsalita, bumukas ang pinto ng jeep—liwanag ang bumungad." },
-      { time: 210, text: "At sa liwanag na iyon, unti-unting nawala si Bea." },
-      { time: 220, text: "Kinabukasan, may balita sa radyo." },
-      { time: 225, text: "“Isang babaeng pasahero ang nasawi kagabi sa aksidente ng jeep sa may highway ng Sariaya.”" },
-      { time: 240, text: "At sa jeep na iyon, may naiwan—isang bag na may pangalan: Bea Santos." },
-      { time: 250, text: "Sa huling jeep ng gabi... minsan, hindi lahat ng pasahero ay tao." }
+      { time: 0, text: "[Sound effects: Crickets, distant barking dogs, tricycle engine passing. Soft acoustic guitar music fades in]" },
+      { time: 12, text: "Sa lahat ng hindi inaasahan sa buhay, tulad ng sabayang pagpatak ng ulan at LBM, o yung pag-message mo sa crush mo na isi-seen lang — walang mas nakakagulat kaysa sa pagbabalik ng isang taong hindi mo na inakalang babalik pa." },
+      { time: 23, text: "Ito ang kwento ni Bea… at ng isang jeepney ride na magbabago ng lahat." },
+      { time: 31, text: "[Sound effects: Ulan, jeepney engine starting, “para po!”]" },
+      { time: 38, text: "Gabi na sa Sariaya." },
+      { time: 40, text: "Si Bea, galing sa kanyang part-time, pagod, gutom, at basa sa ulan." },
+      { time: 42, text: "Sa loob ng jeep, may tatlong pasahero — isa ay tulog, isa kumakain ng fishball, at isa... ang ex niyang si Paolo." },
+      { time: 48, text: "[Sound effects: Jeepney brake squeak. Background: light rain, tambucho noise.]" },
+      { time: 57, text: "Bea (sarcastic): Ay wow." },
+      { time: 63, text: "Si Mr. Ghoster. Buhay ka pa pala." },
+      { time: 65, text: "Paolo (shock): Bea?!" },
+      { time: 67, text: "Uy, hala, ikaw nga! Grabe, ang ganda mo pa rin!" },
+      { time: 75, text: "Bea (deadpan): Wag mo akong daanin sa bola. Hindi ako siopao." },
+      { time: 83, text: "Bago pa mangyari ang lahat ng ‘to, si Bea at si Paolo ay may kwento. Isang kwento ng mga unang ngiti, at ng mga unang halakhak sa gitna ng mga kape at kwentuhan." },
+      { time: 93, text: "Nagkakilala sila sa isang coffee shop sa Barangay Poblacion 2, Sariaya, Quezon," },
+      { time: 98, text: "sa likod ng Ongville, to be exact sa Brewleaf. — isang lugar na puno ng kwento, at puno ng tamis ng mga simula." },
+      { time: 105, text: "Si Beatriz Gabrielle Castillo, also known as Bea, isang independent na babae, outgoing at madaldal." },
+      { time: 113, text: "Siya yung tipo ng tao na laging game sa usapan," },
+      { time: 117, text: "hindi nauubusan ng kwento, at mahilig magpuyat para mag-binge watch ng mga paborito niyang series hanggang madaling araw." },
+      { time: 126, text: "Si Paolo Antonio Villanueva or Paolo," },
+      { time: 130, text: "isang dedicated na athlete na laging puno ng energy." },
+      { time: 134, text: "Medyo playful siya at mahilig magbiro," },
+      { time: 137, text: "kaya kahit seryoso ang training ay nagagawa niyang gawing masaya ang paligid." },
+      { time: 142, text: "Natural sa kanya ang pagiging palakaibigan, at may confidence siyang nakakahawa — tipong kaya niyang pasayahin ang kahit sinong kasama niya." },
+      { time: 147, text: "[Sound effects: The bell of the coffee shop rings as Paolo walks in. Bea is sipping her coffee.]" },
+      { time: 149, text: "Paolo (playful, excited): Excuse me, miss… may free WiFi ba dito? Kasi feeling ko mas mabilis ang connection kung sayo ako makikipag-usap." },
+      { time: 158, text: "Bea (smiling, sarcastic): Free WiFi? Kung paanong libre ang utang ng mga kababayan mo sa mga kaibigan nila, “free” lang yan." },
+      { time: 164, text: "Paolo (laughing): Grabe ka naman, ha! Hindi ba pwedeng magtanong lang… syempre may kasamang charm, para hindi lang ako sa court mabilis maka-score." },
+      { time: 170, text: "Pwede ba maki-table? Full-house na eh. I’m Paolo by the way" },
+      { time: 175, text: "[Sound effects: Trina’s voice in the background, teasing Bea.]" },
+      { time: 175, text: "Trina (shouting from a table): Bea, ayan na siya! Baka ito siya na yung Mr. Right na hinahanap mo! Tall, check, mestizo, check, handsome, oh super check. Hindi mo ba siya tatanggapin?" },
+      { time: 199, text: "Narrator (lightly): Si Trina, ang best friend ni Bea, ang palaging kasangga sa mga ganitong moments. Hindi siya tinatablan ng hiya at mahilig magbiro, lalo na kapag si Bea ang topic." },
+      { time: 213, text: "Bea (rolling her eyes, laughing): Trina, sobra ang pagka-OA ha!" },
+      { time: 219, text: "Ikalma mo and yes Paolo, pwede ka maki-table. I’m Bea and itong OA na katabi ko, si Trina nga pala" },
+      { time: 231, text: "Paolo (chuckling): Thanks. Wait, sabi na eh familiar ka! You’re Ms. Castillo, right? Si Ms. Top 1 since junior high school, na kulang nalang i-perfect niya lahat ng quizzes and exams. It’s nice to finally meet my idol in person." },
+      { time: 238, text: "Bea: Yes, that’s me, Mr. MVP ng basketball ng intramurals 2024" },
+      { time: 243, text: "Trina: So ano ko dito? Third wheel ganun?" },
+      { time: 249, text: "[Narrator]: Sinong maga-akala na dito na pala magsisimula ang pagkaka-ibigan, este pagkakaibigan ng dalawa." },
+      { time: 256, text: "It was not hard na maging close yung dalawa, considering na they’re schoolmates from the same school and grade level." },
+      { time: 263, text: "Ano nga bang mangyayari sa kanilang friendship? We’ll be giving you the next latest tea of the story after this short break." },
+      { time: 273, text: "… Commercial" },
+      { time: 293, text: "… Breaking News" },
+      // Continue adding all lines here in order up to 1363 seconds
+      { time: 1362, text: "At sa huling biyahe ng gabi, muling nagtagpo ang dalawang pusong pinagbuklod ng pag-ibig — hindi man sa mundong ito, kundi sa kabila, kung saan wala nang sakit, wala nang luha, at walang iwanan." },
+      { time: 1363, text: "The End." }
     ];
 
     let current = 0;
@@ -55,7 +78,7 @@
 
     function showSubtitle() {
       const now = (Date.now() - startTime) / 1000;
-      if (current < subtitles.length && now >= subtitles[current].time) {
+      while (current < subtitles.length && now >= subtitles[current].time) {
         document.getElementById("subtitle").innerText = subtitles[current].text;
         current++;
       }
@@ -94,3 +117,4 @@
   </script>
 </body>
 </html>
+
