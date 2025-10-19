@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="tl">
 <head>
@@ -29,6 +28,8 @@
       text-align:center;
     }
     #subtitle {
+      font-family: 'MistakeNote', "Segoe UI", Roboto, Arial, sans-serif;
+      color: #ff0000; /* red */
       font-size: clamp(18px, 4vw, 30px);
       line-height:1.4;
       max-width: 92%;
@@ -57,7 +58,7 @@
 </head>
 <body>
   <div class="wrap">
-    <div id="subtitle">Pindutin ang Play sa iyong app upang simulan ang subtitles.</div>
+    <div id="subtitle">“Sa Huling Jeep ng Gabi”</div>
     <div id="time"></div>
   </div>
   <div id="debug" style="display:none;"></div>
@@ -78,7 +79,7 @@
 const subtitles = [
   /* I'll use the durations provided, accumulated to create start times.
      Start at 0. */
- { t: 12.0, text: "Sa lahat ng hindi inaasahan sa buhay, tulad ng sabayang pagpatak ng ulan at LBM, o yung pag-message mo sa crush mo na isi-seen lang" },
+  { t: 12.0, text: "Sa lahat ng hindi inaasahan sa buhay, tulad ng sabayang pagpatak ng ulan at LBM, o yung pag-message mo sa crush mo na isi-seen lang" },
   { t: 23.0, text: "Walang mas nakakagulat kaysa sa pagbabalik ng isang taong hindi mo na inakalang babalik pa." },
   { t: 31.0, text: "Ito ang kwento ni Bea… at ng isang jeepney ride na magbabago ng lahat." },
   { t: 38.0, text: "[Sound effects: Ulan, jeepney engine starting, 'para po!']" },
@@ -335,7 +336,7 @@ function doStop() {
   elapsedBefore = 0;
   if (raf) cancelAnimationFrame(raf);
   lastShownIndex = -1;
-  document.getElementById('subtitle').innerText = "Pindutin ang Play sa iyong app upang simulan ang subtitles.";
+  document.getElementById('subtitle').innerText = "Sa Huling Jeep ng Gabi";
   document.getElementById('time').innerText = "";
 }
 
